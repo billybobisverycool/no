@@ -1,8 +1,8 @@
-// Example songs
+// Example songs with MP3 paths
 const songs = [
-    { id: 1, title: "Song One" },
-    { id: 2, title: "Song Two" },
-    { id: 3, title: "Song Three" },
+    { id: 1, title: "Song One", file: "song1.mp3" },
+    { id: 2, title: "Song Two", file: "song2.mp3" },
+    { id: 3, title: "Song Three", file: "song3.mp3" },
 ];
 
 // Function to set a cookie
@@ -17,7 +17,7 @@ function setCookie(name, value, days) {
 function getCookie(name) {
     const nameEQ = name + "=";
     const ca = document.cookie.split(';');
-    for(let i = 0; i < ca.length; i++) {
+    for (let i = 0; i < ca.length; i++) {
         let c = ca[i];
         while (c.charAt(0) === ' ') c = c.substring(1);
         if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
@@ -30,6 +30,7 @@ function displaySongs() {
     const songListDiv = document.getElementById('song-list');
     songs.forEach(song => {
         const songDiv = document.createElement('div');
+        songDiv.className = 'song';
         songDiv.innerHTML = `${song.title} 
             <button onclick="selectSong(${song.id})">Select</button>`;
         songListDiv.appendChild(songDiv);
@@ -44,6 +45,7 @@ function selectSong(id) {
         setCookie('selectedSongs', JSON.stringify(selectedSongs), 7);
         displaySelectedSongs();
     }
+    playSong(id);
 }
 
 // Function to get selected songs from cookies
@@ -55,8 +57,10 @@ function getSelectedSongs() {
 // Function to display selected songs
 function displaySelectedSongs() {
     const selectedSongsDiv = document.getElementById('selected-songs');
+    const audioPlayer = document.getElementById('audio-player');
     selectedSongsDiv.innerHTML = '';
     const selectedSongs = getSelectedSongs();
+    
     selectedSongs.forEach(id => {
         const song = songs.find(song => song.id === id);
         if (song) {
@@ -65,6 +69,22 @@ function displaySelectedSongs() {
             selectedSongsDiv.appendChild(songDiv);
         }
     });
+}
+
+// Function to play a song
+function playSong(id) {
+    const song = songs.find(song => song.id === id);
+    if (song) {
+        const audioPlayer = document.getElementById('audio-player');
+        audioPlayer.src = song.file; // Set the source to the selected song
+        audioPlayer.play();
+    }
+}
+
+// Initial display
+displaySongs();
+displaySelectedSongs();
+
 }
 
 // Initial display
