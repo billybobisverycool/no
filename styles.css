@@ -1,11 +1,12 @@
 body {
     font-family: Arial, sans-serif;
-}
-
-#host-dashboard, #player-interface {
     margin: 20px;
 }
 
+#song-list, #selected-songs {
+    margin: 20px 0;
+}
+
 button {
-    margin-top: 10px;
+    margin-left: 10px;
 }
