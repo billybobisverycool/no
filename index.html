@@ -3,29 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
     <link rel="stylesheet" href="styles.css">
-    <title>Spotify Clone</title>
 </head>
 <body>
-    <header>
-        <h1>Spotify Clone</h1>
-    </header>
-    <main>
-        <div id="container">
-            <section id="song-list"></section>
-            <section id="player">
-                <div id="song-info">
-                    <h2 id="current-song-title">Select a song to play</h2>
-                </div>
-                <audio id="audio-player" controls></audio>
-                <div id="controls">
-                    <button id="prev-button">Previous</button>
-                    <button id="play-button">Play</button>
-                    <button id="next-button">Next</button>
-                </div>
-            </section>
-        </div>
-    </main>
+    <div id="music-player">
+        <h1>Music Player</h1>
+        <ul id="song-list"></ul>
+        <audio id="audio" controls></audio>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
