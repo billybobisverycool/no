@@ -1,6 +1,7 @@
 // Example songs with MP3 paths
 const songs = [
-    { id: 1, title: "Song One", file: "song1.mp3" },
+    { id: 1, title: "All Girls Are The Same by Juice WRLD, file: "youtube_All Girls Are The Same.mp3
+" },
     { id: 2, title: "Song Two", file: "song2.mp3" },
     { id: 3, title: "Song Three", file: "song3.mp3" },
 ];
