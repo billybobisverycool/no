@@ -5,6 +5,8 @@ const songs = [
     { id: 3, title: "Song Three", file: "song3.mp3" },
 ];
 
+let currentSongIndex = -1; // Track the currently playing song
+
 // Function to set a cookie
 function setCookie(name, value, days) {
     const d = new Date();
@@ -45,6 +47,7 @@ function selectSong(id) {
         setCookie('selectedSongs', JSON.stringify(selectedSongs), 7);
         displaySelectedSongs();
     }
+    currentSongIndex = selectedSongs.indexOf(id);
     playSong(id);
 }
 
@@ -56,19 +59,17 @@ function getSelectedSongs() {
 
 // Function to display selected songs
 function displaySelectedSongs() {
-    const selectedSongsDiv = document.getElementById('selected-songs');
-    const audioPlayer = document.getElementById('audio-player');
-    selectedSongsDiv.innerHTML = '';
+    const selectedSongsDiv = document.getElementById('song-info');
     const selectedSongs = getSelectedSongs();
     
-    selectedSongs.forEach(id => {
-        const song = songs.find(song => song.id === id);
+    if (selectedSongs.length > 0) {
+        const song = songs.find(song => song.id === selectedSongs[currentSongIndex]);
         if (song) {
-            const songDiv = document.createElement('div');
-            songDiv.innerHTML = song.title;
-            selectedSongsDiv.appendChild(songDiv);
+            document.getElementById('current-song-title').innerText = song.title;
         }
-    });
+    } else {
+        document.getElementById('current-song-title').innerText = "Select a song to play";
+    }
 }
 
 // Function to play a song
@@ -80,6 +81,37 @@ function playSong(id) {
         audioPlayer.play();
     }
 }
+
+// Function to play the next song
+function playNextSong() {
+    const selectedSongs = getSelectedSongs();
+    if (selectedSongs.length > 0) {
+        currentSongIndex = (currentSongIndex + 1) % selectedSongs.length; // Loop back
+        const nextSongId = selectedSongs[currentSongIndex];
+        playSong(nextSongId);
+        displaySelectedSongs();
+    }
+}
+
+// Function to play the previous song
+function playPrevSong() {
+    const selectedSongs = getSelectedSongs();
+    if (selectedSongs.length > 0) {
+        currentSongIndex = (currentSongIndex - 1 + selectedSongs.length) % selectedSongs.length; // Loop back
+        const prevSongId = selectedSongs[currentSongIndex];
+        playSong(prevSongId);
+        displaySelectedSongs();
+    }
+}
+
+// Event listeners for controls
+document.getElementById('play-button').onclick = () => {
+    const audioPlayer = document.getElementById('audio-player');
+    audioPlayer.paused ? audioPlayer.play() : audioPlayer.pause();
+};
+
+document.getElementById('next-button').onclick = playNextSong;
+document.getElementById('prev-button').onclick = playPrevSong;
 
 // Initial display
 displaySongs();
