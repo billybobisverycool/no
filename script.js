@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const audio = document.getElementById('audio');
 
     const songs = [
-        { title: 'Song One', artist: 'Artist One', url: 'https://www.example.com/song1.mp3' },
+        { title: 'All Girls Are The Same', artist: 'Juice WRLD', url: 'https://billybobisverycool.github.io/no/youtube_All%20Girls%20Are%20The%20Same.mp3' },
         { title: 'Song Two', artist: 'Artist Two', url: 'https://www.example.com/song2.mp3' },
         // Replace with actual audio URLs
     ];
